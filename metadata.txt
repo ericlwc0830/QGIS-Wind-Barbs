@@ -1,0 +1,10 @@
+[general]
+name=QGIS Wind barbs
+qgisMinimumVersion=3.22
+qgisMaximumVersion=3.99
+description=Set the symbol of point vector data as wind barbs
+author=ericlwc
+email=ericlun60313@gmail.comz
+version=0.1.0
+icon=resources/icon/icon.png
+repository=https://github.com/ericlwc0830/QGIS-Wind-Barbs
