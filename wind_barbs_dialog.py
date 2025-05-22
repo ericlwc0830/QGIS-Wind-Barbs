@@ -36,7 +36,7 @@ class WindBarbsDialog(QDialog):
         fieldLayout.addWidget(self.vField)
         fieldLayout.addWidget(self.unitLabel)
         fieldLayout.addWidget(self.unitCombo)
-        fieldGroup = QGroupBox("Section 2: Select Fields")
+        fieldGroup = QGroupBox("Select Fields")
         fieldGroup.setLayout(fieldLayout)
 
         # Section 3: Select Style
@@ -56,7 +56,7 @@ class WindBarbsDialog(QDialog):
         styleLayout.addWidget(self.btnColor)
         styleLayout.addWidget(self.lineWidthLabel)
         styleLayout.addWidget(self.lineWidthEdit)
-        styleGroup = QGroupBox("Section 3: Select Style")
+        styleGroup = QGroupBox("Select Style")
         styleGroup.setLayout(styleLayout)
 
         # Main Layout
