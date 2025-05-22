@@ -5,13 +5,14 @@ from PyQt5.QtGui import QColor
 from qgis.core import QgsProject, QgsSvgMarkerSymbolLayer, QgsMarkerSymbol, QgsProperty, QgsSymbolLayer, QgsRuleBasedRenderer, QgsUnitTypes
 import os
 
+
 class WindBarbsDialog(QDialog):
     def __init__(self, iface):
         super().__init__()
         self.iface = iface
         self.setWindowTitle("QGIS Wind Barbs")
 
-        # Section One: Select Layer
+        # Section 1: Select Layer
         self.layerLabel = QLabel("Select Layer:")
         self.layerCombo = QComboBox()
         layerLayout = QVBoxLayout()
@@ -20,11 +21,11 @@ class WindBarbsDialog(QDialog):
         layerGroup = QGroupBox("Select Layer")
         layerGroup.setLayout(layerLayout)
 
-        # Section Two: Select Fields
+        # Section 2: Select Fields
         self.uLabel = QLabel("U Component Field Name:")
-        self.uField = QLineEdit()
+        self.uField = QComboBox()
         self.vLabel = QLabel("V Component Field Name:")
-        self.vField = QLineEdit()
+        self.vField = QComboBox()
         self.unitLabel = QLabel("Wind Speed Unit:")
         self.unitCombo = QComboBox()
         self.unitCombo.addItems(["m/s", "km/hr", "knots"])
@@ -35,10 +36,10 @@ class WindBarbsDialog(QDialog):
         fieldLayout.addWidget(self.vField)
         fieldLayout.addWidget(self.unitLabel)
         fieldLayout.addWidget(self.unitCombo)
-        fieldGroup = QGroupBox("Select Fields")
+        fieldGroup = QGroupBox("Section 2: Select Fields")
         fieldGroup.setLayout(fieldLayout)
 
-        # Section Three: Select Style
+        # Section 3: Select Style
         self.sizeLabel = QLabel("Size (Millimeters):")
         self.sizeEdit = QLineEdit("50")
         self.colorLabel = QLabel("Select Color (Hex):")
@@ -46,7 +47,7 @@ class WindBarbsDialog(QDialog):
         self.btnColor = QPushButton("Choose Color")
         self.btnColor.clicked.connect(self.chooseColor)
         self.lineWidthLabel = QLabel("Line Width (px):")
-        self.lineWidthEdit = QLineEdit("2")
+        self.lineWidthEdit = QLineEdit("1")
         styleLayout = QVBoxLayout()
         styleLayout.addWidget(self.sizeLabel)
         styleLayout.addWidget(self.sizeEdit)
@@ -55,7 +56,7 @@ class WindBarbsDialog(QDialog):
         styleLayout.addWidget(self.btnColor)
         styleLayout.addWidget(self.lineWidthLabel)
         styleLayout.addWidget(self.lineWidthEdit)
-        styleGroup = QGroupBox("Select Style")
+        styleGroup = QGroupBox("Section 3: Select Style")
         styleGroup.setLayout(styleLayout)
 
         # Main Layout
@@ -69,6 +70,8 @@ class WindBarbsDialog(QDialog):
         self.setLayout(mainLayout)
 
         self.populateLayers()
+        # 當圖層變更時，自動更新數值型欄位下拉式選單
+        self.layerCombo.currentIndexChanged.connect(self.populateNumericFields)
         self.btnApply.clicked.connect(self.applyWindBarbs)
 
     def chooseColor(self):
@@ -79,16 +82,38 @@ class WindBarbsDialog(QDialog):
     def populateLayers(self):
         self.layerCombo.clear()
         for layer in QgsProject.instance().mapLayers().values():
+            # 檢查圖層是否為向量圖層且為點圖層
             if layer.type() == layer.VectorLayer and layer.geometryType() == 0:
                 self.layerCombo.addItem(layer.name(), layer)
+        # 更新欄位選單
+        self.populateNumericFields()
+
+    def populateNumericFields(self):
+        # 清除原本的欄位選單
+        self.uField.clear()
+        self.vField.clear()
+        layer = self.layerCombo.currentData()
+        if not layer:
+            return
+        provider = layer.dataProvider()
+        fields = provider.fields()
+        numeric_fields = []
+        for field in fields:
+            # 判斷欄位是否為數值型態，這裡以 "Integer" 與 "Real" 為例
+            if field.typeName() in ["Integer", "Real"]:
+                numeric_fields.append(field.name())
+        if numeric_fields:
+            self.uField.addItems(numeric_fields)
+            self.vField.addItems(numeric_fields)
 
     def applyWindBarbs(self):
         plugin_dir = os.path.dirname(os.path.abspath(__file__))
         svg_dir = os.path.join(plugin_dir, 'resources', 'svg')
 
         layer = self.layerCombo.currentData()
-        u_field = self.uField.text().strip()
-        v_field = self.vField.text().strip()
+        # 更新為從下拉選單取得欄位名稱
+        u_field = self.uField.currentText().strip()
+        v_field = self.vField.currentText().strip()
         unit = self.unitCombo.currentText()
         color_hex = self.colorEdit.text().strip()
         try:
