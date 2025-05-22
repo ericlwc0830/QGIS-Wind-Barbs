@@ -54,8 +54,8 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 
 ### 安裝步驟
 1. 將此 Repository 以 zip 檔案下載至本地。
-2. 使用 QGIS 的插件管理器使用 install from zip file 功能安裝插件。
-3. 安裝完成後，啟動 QGIS 並在插件列表中找到 **QGIS Wind Barbs** 插件，並啟用它。
+2. 使用 QGIS 的外掛管理器使用 install from zip file 功能安裝外掛。
+3. 安裝完成後，啟動 QGIS 並在外掛列表中找到 **QGIS Wind Barbs** 外掛，並啟用它。
 
 ### 使用方式
 1. 在 QGIS 中載入點狀圖層，並確保該圖層具備以 m/s、km/hr 或 knots 表示的 U 與 V 風速分量的欄位。
@@ -64,10 +64,10 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 4. 選擇對應的 U 與 V 分量欄位名稱。
 5. 選擇風速單位：m/s、km/hr 或 knots。
 6. 選擇風標的大小、顏色、粗細。
-7. 點選 **Apply Wind Barb Style** 按鈕，插件會依據各區間風速 (使用規則式渲染) 套用對應的風標圖示。
+7. 點選 **Apply Wind Barb Style** 按鈕，外掛會依據各區間風速 (使用規則式渲染) 套用對應的風標圖示。
 
 ### 相容性
-- 測試於 QGIS 3.40 版本，惟本插件並未使用過於複雜的新功能，應也可正常運行於 QGIS 3.0 以上版本。
+- 測試於 QGIS 3.40 版本，惟本外掛並未使用過於複雜的新功能，應也可正常運行於 QGIS 3.0 以上版本。
 
 ### 作者
 - 作者：ericlwc  
@@ -80,4 +80,4 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 
 ### 聲明
 
-本插件所使用的風標圖示，是微調自 [svg-wind-barbs](https://github.com/qulle/svg-wind-barbs) 的相關檔案，並遵循其 [BSD 2-Clause License](https://opensource.org/licenses/BSD-2-Clause) 授權條款。
+本外掛所使用的風標圖示，是微調自 [svg-wind-barbs](https://github.com/qulle/svg-wind-barbs) 的相關檔案，並遵循其 [BSD 2-Clause License](https://opensource.org/licenses/BSD-2-Clause) 授權條款。
