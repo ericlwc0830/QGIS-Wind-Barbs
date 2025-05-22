@@ -41,7 +41,7 @@ QGIS Wind Barbs Plugin can set wind barbs symbols based on the two components of
 ### Disclaimer
 The wind barbs symbols used in this plugin are modified from the related files of [svg-wind-barbs](https://github.com/qulle/svg-wind-barbs) and comply with its [BSD 2-Clause License](https://opensource.org/licenses/BSD-2-Clause).
 
-## Chinese
+## 中文版（Chinese Version）
 
 ### 介紹
 QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、V) 設定為風標符號 (Wind Barbs)，協助使用者視覺化風的分布狀況。
