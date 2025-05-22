@@ -23,16 +23,8 @@ QGIS Wind Barbs Plugin can set wind barbs symbols based on the two components of
 3. From the **Select Layer** dropdown menu, select the point layer to which you want to apply wind barbs.
 4. Enter the corresponding field names for the U and V components.
 5. Select the wind speed unit: m/s, km/hr, or knots.
-6. Click the **Apply Wind Barb Style** button, and the plugin will apply the corresponding wind barbs symbols based on the wind speed intervals (using rule-based rendering).
-
-### Further Style Changes
-
-If you want to further adjust the style of the wind barbs on the layer (e.g., size, color, opacity), please:
-1. Select the layer in the layer panel.
-2. Right-click and select Properties.
-3. Check the Symbology tab.
-4. Press Ctrl+A to select all Labels.
-5. Right-click to choose Change Color, Change Size, or Change Opacity to adjust the color, size, or opacity.
+6. Choose the size, color, and thickness of the wind barbs.
+7. Click the **Apply Wind Barb Style** button, and the plugin will apply the corresponding wind barbs symbols based on the wind speed intervals (using rule-based rendering).
 
 ### Compatibility
 - Tested on QGIS version 3.40, but this plugin does not use overly complex new features, so it should also run normally on QGIS version 3.0 and above.
@@ -40,6 +32,10 @@ If you want to further adjust the style of the wind barbs on the layer (e.g., si
 ### Author
 - Author: ericlwc  
 - Email: ericlun60313@gmail.com
+
+### Version
+- Version: 0.2.0: Added a new feature to set the size, color, and thickness of wind barbs.
+- Version: 0.1.0: Initial release
 
 ### Disclaimer
 The wind barbs symbols used in this plugin are modified from the related files of [svg-wind-barbs](https://github.com/qulle/svg-wind-barbs) and comply with its [BSD 2-Clause License](https://opensource.org/licenses/BSD-2-Clause).
@@ -66,16 +62,8 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 3. 從 **Select Layer** 下拉選單中選擇欲套用風標的點狀圖層。
 4. 輸入 U 與 V 分量對應的欄位名稱。
 5. 選擇風速單位：m/s、km/hr 或 knots。
-6. 點選 **Apply Wind Barb Style** 按鈕，插件會依據各區間風速 (使用規則式渲染) 套用對應的風標圖示。
-
-### 進一步更改樣式
-
-若要進一步調整圖層風標的樣式（例如大小、顏色、透明度），請：
-1. 在圖層面板選定該圖層
-2. 右鍵點選 Properties 
-3. 查看 Symbology 標籤
-4. 按 Ctrl+A 全選所有的Label
-5. 右鍵選擇 Change Color、Change Size 或 Change Opacity 來調整顏色、大小或透明度。
+6. 選擇風標的大小、顏色、粗細。
+7. 點選 **Apply Wind Barb Style** 按鈕，插件會依據各區間風速 (使用規則式渲染) 套用對應的風標圖示。
 
 ### 相容性
 - 測試於 QGIS 3.40 版本，惟本插件並未使用過於複雜的新功能，應也可正常運行於 QGIS 3.0 以上版本。
@@ -83,6 +71,10 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 ### 作者
 - 作者：ericlwc  
 - Email：ericlun60313@gmail.com
+
+### 版本
+- 版本：0.2.0：新增設定風標大小、顏色、粗細的功能。
+- 版本：0.1.0：初始版本。
 
 ### 聲明
 

@@ -2,5 +2,5 @@
     <style type="text/css">
         .svg-wb{fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
     </style>
-    <path class="svg-wb" d="M125,112V18M125,18h14l-14,14V18zM125,32h14l-14,14V32zM125,46h14l-14,14V46zM125,70l14-14M125,80l14-14M125,90l14-14M125,100l14-14M125,125v-14"/>
+    <path class="svg-wb" fill="param(fill)" stroke="param(fill)" stroke-width="param(outline-width)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" d="M125,112V18M125,18h14l-14,14V18zM125,32h14l-14,14V32zM125,46h14l-14,14V46zM125,70l14-14M125,80l14-14M125,90l14-14M125,100l14-14M125,125v-14"/>
 </svg>
