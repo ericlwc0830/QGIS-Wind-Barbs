@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QDialog, QLabel, QComboBox, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QMessageBox, QColorDialog
+from PyQt5.QtWidgets import (QDialog, QLabel, QComboBox, QLineEdit, QPushButton,
+                             QVBoxLayout, QHBoxLayout, QMessageBox, QColorDialog,
+                             QGroupBox)
 from PyQt5.QtGui import QColor
 from qgis.core import QgsProject, QgsSvgMarkerSymbolLayer, QgsMarkerSymbol, QgsProperty, QgsSymbolLayer, QgsRuleBasedRenderer, QgsUnitTypes
 import os
-
 
 class WindBarbsDialog(QDialog):
     def __init__(self, iface):
@@ -10,58 +11,62 @@ class WindBarbsDialog(QDialog):
         self.iface = iface
         self.setWindowTitle("QGIS Wind Barbs")
 
-        # 圖層選擇控件
+        # Section One: Select Layer
         self.layerLabel = QLabel("Select Layer:")
         self.layerCombo = QComboBox()
+        layerLayout = QVBoxLayout()
+        layerLayout.addWidget(self.layerLabel)
+        layerLayout.addWidget(self.layerCombo)
+        layerGroup = QGroupBox("Select Layer")
+        layerGroup.setLayout(layerLayout)
 
-        # U分量字段名稱輸入控件
+        # Section Two: Select Fields
         self.uLabel = QLabel("U Component Field Name:")
         self.uField = QLineEdit()
-
-        # V分量字段名稱輸入控件
         self.vLabel = QLabel("V Component Field Name:")
         self.vField = QLineEdit()
-
-        # 風速單位選擇控件
         self.unitLabel = QLabel("Wind Speed Unit:")
         self.unitCombo = QComboBox()
         self.unitCombo.addItems(["m/s", "km/hr", "knots"])
+        fieldLayout = QVBoxLayout()
+        fieldLayout.addWidget(self.uLabel)
+        fieldLayout.addWidget(self.uField)
+        fieldLayout.addWidget(self.vLabel)
+        fieldLayout.addWidget(self.vField)
+        fieldLayout.addWidget(self.unitLabel)
+        fieldLayout.addWidget(self.unitCombo)
+        fieldGroup = QGroupBox("Select Fields")
+        fieldGroup.setLayout(fieldLayout)
 
-        # 大小選擇控件
+        # Section Three: Select Style
         self.sizeLabel = QLabel("Size (Millimeters):")
         self.sizeEdit = QLineEdit("50")
-
-        # 顏色選取控件
         self.colorLabel = QLabel("Select Color (Hex):")
         self.colorEdit = QLineEdit("#000000")
         self.btnColor = QPushButton("Choose Color")
         self.btnColor.clicked.connect(self.chooseColor)
-
-        # 線條寬度控件
         self.lineWidthLabel = QLabel("Line Width (px):")
         self.lineWidthEdit = QLineEdit("2")
+        styleLayout = QVBoxLayout()
+        styleLayout.addWidget(self.sizeLabel)
+        styleLayout.addWidget(self.sizeEdit)
+        styleLayout.addWidget(self.colorLabel)
+        styleLayout.addWidget(self.colorEdit)
+        styleLayout.addWidget(self.btnColor)
+        styleLayout.addWidget(self.lineWidthLabel)
+        styleLayout.addWidget(self.lineWidthEdit)
+        styleGroup = QGroupBox("Select Style")
+        styleGroup.setLayout(styleLayout)
+
+        # Main Layout
+        mainLayout = QVBoxLayout()
+        mainLayout.addWidget(layerGroup)
+        mainLayout.addWidget(fieldGroup)
+        mainLayout.addWidget(styleGroup)
 
         self.btnApply = QPushButton("Apply Wind Barb Style")
-
-        # Layout
-        layout = QVBoxLayout()
-        layout.addWidget(self.layerLabel)
-        layout.addWidget(self.layerCombo)
-        layout.addWidget(self.uLabel)
-        layout.addWidget(self.uField)
-        layout.addWidget(self.vLabel)
-        layout.addWidget(self.vField)
-        layout.addWidget(self.unitLabel)
-        layout.addWidget(self.unitCombo)
-        layout.addWidget(self.sizeLabel)
-        layout.addWidget(self.sizeEdit)
-        layout.addWidget(self.colorLabel)
-        layout.addWidget(self.colorEdit)
-        layout.addWidget(self.btnColor)
-        layout.addWidget(self.lineWidthLabel)
-        layout.addWidget(self.lineWidthEdit)
-        layout.addWidget(self.btnApply)
-        self.setLayout(layout)
+        mainLayout.addWidget(self.btnApply)
+        self.setLayout(mainLayout)
 
         self.populateLayers()
         self.btnApply.clicked.connect(self.applyWindBarbs)
@@ -105,27 +110,23 @@ class WindBarbsDialog(QDialog):
 
         # Create Rule-based renderer of wind barbs
         wind_speed_levels = [0, 2] + list(range(5, 195, 5))
-        wind_speed_thresholds = [(wind_speed_levels[i] + wind_speed_levels[i + 1])/2 for i in range(len(wind_speed_levels) - 1)]
+        wind_speed_thresholds = [(wind_speed_levels[i] + wind_speed_levels[i+1])/2 for i in range(len(wind_speed_levels)-1)]
         for i in range(len(wind_speed_thresholds)):
-            wind_speed_threshold_lower_bound = 0 if i == 0 else wind_speed_thresholds[i - 1]
+            wind_speed_threshold_lower_bound = 0 if i == 0 else wind_speed_thresholds[i-1]
             wind_speed_threshold_upper_bound = wind_speed_thresholds[i]
             wind_speed_level = wind_speed_levels[i]
 
-            # 設定風標樣式與大小
             svg_path = os.path.join(svg_dir, f'{wind_speed_level}.svg')
             sym = QgsMarkerSymbol.createSimple({})
             sym.setSizeUnit(QgsUnitTypes.RenderPixels)
             svg_layer_rule = QgsSvgMarkerSymbolLayer(svg_path, float(self.sizeEdit.text().strip()))
 
-            # 設定風向旋轉公式
             rotation_expr = f"(180/pi())*atan2(-\"{u_field}\", -\"{v_field}\") % 360"
             svg_layer_rule.setDataDefinedProperty(QgsSymbolLayer.PropertyAngle, QgsProperty.fromExpression(rotation_expr))
 
-            # 設定顏色與線條寬度
             svg_layer_rule.setFillColor(QColor(color_hex))
             svg_layer_rule.setStrokeColor(QColor(color_hex))
             svg_layer_rule.setStrokeWidth(line_width)
-            # set stroke line width unit to pixels
             svg_layer_rule.setStrokeWidthUnit(QgsUnitTypes.RenderPixels)
 
             sym.changeSymbolLayer(0, svg_layer_rule)
