@@ -146,7 +146,11 @@ class WindBarbsDialog(QDialog):
             sym.setSizeUnit(QgsUnitTypes.RenderPixels)
             svg_layer_rule = QgsSvgMarkerSymbolLayer(svg_path, float(self.sizeEdit.text().strip()))
 
-            rotation_expr = f"(180/pi())*atan2(-\"{u_field}\", -\"{v_field}\") % 360"
+            rotation_expr = (
+                f"if(\"{u_field}\"=0 OR \"{v_field}\"=0, "
+                f"((180/pi())*atan2(-\"{u_field}\", -\"{v_field}\") % 360) + 0.01, "
+                f"(180/pi())*atan2(-\"{u_field}\", -\"{v_field}\") % 360)"
+            ) # 為了避免u或v為0會導致偶爾出現無法正常顯示的情況，這裡加上0.01的偏移量
             svg_layer_rule.setDataDefinedProperty(QgsSymbolLayer.PropertyAngle, QgsProperty.fromExpression(rotation_expr))
 
             svg_layer_rule.setFillColor(QColor(color_hex))

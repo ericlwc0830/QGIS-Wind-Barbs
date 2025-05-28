@@ -34,6 +34,7 @@ QGIS Wind Barbs Plugin can set wind barbs symbols based on the two components of
 - Email: ericlun60313@gmail.com
 
 ### Version
+- Version: 0.2.2:  Modified calm wind symbol size.
 - Version: 0.2.1: Added a dropdown menu to select component field names, reducing the chance of user input errors.
 - Version: 0.2.0: Added a new feature to set the size, color, and thickness of wind barbs.
 - Version: 0.1.0: Initial release
@@ -74,6 +75,7 @@ QGIS Wind Barbs Plugin 可以將點狀向量資料依據風的兩個分量 (U、
 - Email：ericlun60313@gmail.com
 
 ### 版本
+- 版本：0.2.2：調整靜風符號大小。
 - 版本：0.2.1：以下拉式選單選擇分量欄位名稱，降低使用者輸入錯誤機率。
 - 版本：0.2.0：新增設定風標大小、顏色、粗細的功能。
 - 版本：0.1.0：初始版本。

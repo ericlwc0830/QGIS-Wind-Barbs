@@ -2,6 +2,6 @@
     <style type="text/css">
         .svg-wb{fill:#000000;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
     </style>
-    <path class="svg-wb" fill="param(fill)" stroke-width="0" d="M125,120c2.762,0,5,2.239,5,5c0,2.762-2.238,5-5,5c-2.761,0-5-2.238-5-5C120,122.239,122.239,120,125,120z"/>
-    <path class="svg-wb" fill="none" stroke="param(fill)" stroke-width="param(outline-width)" d="M125,115c5.523,0,10,4.477,10,10c0,5.523-4.477,10-10,10c-5.523,0-10-4.477-10-10C115,119.477,119.477,115,125,115z"/>
+    <path class="svg-wb" fill="param(fill)" stroke-width="0" d="M125,123c1.105,0,2,0.895,2,2c0,1.105-0.895,2-2,2c-1.105,0-2-0.895-2-2C123,123.895,123.895,123,125,123z"/>
+    <path class="svg-wb" fill="none" stroke="param(fill)" stroke-width="param(outline-width)" d="M125,121c2.209,0,4,1.791,4,4c0,2.209-1.791,4-4,4c-2.209,0-4-1.791-4-4C121,122.791,122.791,121,125,121z"/>
 </svg>
